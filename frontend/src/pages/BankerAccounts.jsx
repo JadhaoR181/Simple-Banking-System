@@ -33,23 +33,23 @@ const BankerAccounts = () => {
   );
 
   return (
-    <div className="page">
-      <div className="card">
-        {/* Header */}
+    <div className="page banker-page">
+      <div className="card banker-card">
+        {/* Top Header */}
         <div className="card-header-row banker-header">
           <div>
-            <h2>Customer Accounts Overview</h2>
+            <h2 className="page-title">Customer Accounts Overview</h2>
             <p className="subtext">
-              Click on any customer row to view their detailed transaction history.
+              Tap on any row to view transaction history.
             </p>
           </div>
           <div className="banker-info">
-            <span className="banker-name">Logged in as: {bankerName}</span>
+            <span>Logged In as: {bankerName}</span>
             <span className="role-chip">BANKER</span>
           </div>
         </div>
 
-        {/* Stats Row */}
+        {/* Stats */}
         <div className="stats-row">
           <div className="stat-card">
             <p>Total Customers</p>
@@ -61,20 +61,19 @@ const BankerAccounts = () => {
           </div>
         </div>
 
-        {/* Table / States */}
+        {/* Table */}
         {error && <div className="alert alert-error">{error}</div>}
-
         {loading ? (
           <div className="loading">Loading accounts...</div>
         ) : accounts.length === 0 ? (
           <div className="no-data">No customer accounts found.</div>
         ) : (
-          <div className="table-wrapper">
+          <div className="table-wrapper responsive-table">
             <table className="table">
               <thead>
                 <tr>
-                  <th>Sr. No.</th>
-                  <th>Customer Name</th>
+                  <th>Sr.</th>
+                  <th>Name</th>
                   <th>Email</th>
                   <th>Balance (₹)</th>
                 </tr>
@@ -83,15 +82,13 @@ const BankerAccounts = () => {
                 {accounts.map((acc, index) => (
                   <tr
                     key={acc.id}
-                    className="clickable-row"
                     onClick={() => navigate(`/banker/accounts/${acc.id}`)}
+                    className="clickable-row"
                   >
                     <td>{index + 1}</td>
                     <td>{acc.name}</td>
-                    <td>{acc.email}</td>
-                    <td className="amount-cell">
-                      ₹{Number(acc.balance).toFixed(2)}
-                    </td>
+                    <td className="email-cell">{acc.email}</td>
+                    <td className="amount-cell">₹{Number(acc.balance).toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
